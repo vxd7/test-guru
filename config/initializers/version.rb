@@ -1,1 +1,1 @@
-TestGuru.const_set('VERSION', '0.1.0')
+TestGuru.const_set('VERSION', '0.1.0').freeze
