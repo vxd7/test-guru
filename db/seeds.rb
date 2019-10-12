@@ -5,3 +5,56 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# Create categories
+Category.create([{ name: 'Backend' },
+                 { name: 'Frontend' },
+                 { name: 'Web development' },
+                 { name: 'Design' },
+                 { name: 'UI/UX' }])
+
+# Tests
+Test.create(title: 'Ruby development', level: 0,
+            category_id: Category.find_by(name: 'Backend').id)
+Test.create(title: 'Rails basics', level: 2,
+            category_id: Category.find_by(name: 'Web development').id)
+Test.create(title: 'JavaScript basics', level: 1,
+            category_id: Category.find_by(name: 'Frontend').id)
+
+# Users
+User.create([{ name: 'John' },
+             { name: 'Ann' },
+             { name: 'Maria' },
+             { name: 'Ruslan' }])
+
+# Questions
+# For 'Ruby development' test
+ruby_test_id = Test.find_by(title: 'Ruby development').id
+q1 = Question.create(content: 'Who created the Ruby programming language?',
+                test_id: ruby_test_id)
+q2 = Question.create(content: 'Variables in Ruby are',
+                test_id: ruby_test_id)
+q3 = Question.create(content: 'What is the name of the central management system for the Ruby libraries and packages?',
+                test_id: ruby_test_id)
+
+# Answer variants
+Answer.create(content: 'John Wick', correct: false,
+              question_id: q1.id)
+Answer.create(content: 'Vladimir Lenin', correct: false,
+              question_id: q1.id)
+Answer.create(content: 'Bjarne Stroustrup', correct: false,
+              question_id: q1.id)
+Answer.create(content: 'Yukihiro Matsumoto', correct: true,
+              question_id: q1.id)
+
+Answer.create(content: 'Statically typed', correct: false,
+              question_id: q2.id)
+Answer.create(content: 'Dynamically typed', correct: true,
+              question_id: q2.id)
+
+Answer.create(content: 'PyPi', correct: false,
+              question_id: q3.id)
+Answer.create(content: 'npm', correct: false,
+              question_id: q3.id)
+Answer.create(content: 'RubyGems', correct: true,
+              question_id: q3.id)
