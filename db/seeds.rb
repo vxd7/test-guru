@@ -14,12 +14,12 @@ Category.create([{ name: 'Backend' },
                  { name: 'UI/UX' }])
 
 # Tests
-Test.create(title: 'Ruby development', level: 0,
-            category_id: Category.find_by(name: 'Backend').id)
-Test.create(title: 'Rails basics', level: 2,
-            category_id: Category.find_by(name: 'Web development').id)
-Test.create(title: 'JavaScript basics', level: 1,
-            category_id: Category.find_by(name: 'Frontend').id)
+test_ruby = Test.create(title: 'Ruby development', level: 0,
+                        category_id: Category.find_by(name: 'Backend').id)
+test_rails = Test.create(title: 'Rails basics', level: 2,
+                         category_id: Category.find_by(name: 'Web development').id)
+test_js = Test.create(title: 'JavaScript basics', level: 1,
+                      category_id: Category.find_by(name: 'Frontend').id)
 
 # Users
 User.create([{ name: 'John' },
@@ -29,13 +29,12 @@ User.create([{ name: 'John' },
 
 # Questions
 # For 'Ruby development' test
-ruby_test_id = Test.find_by(title: 'Ruby development').id
 q1 = Question.create(content: 'Who created the Ruby programming language?',
-                test_id: ruby_test_id)
+                     test_id: test_ruby.id)
 q2 = Question.create(content: 'Variables in Ruby are',
-                test_id: ruby_test_id)
+                     test_id: test_ruby.id)
 q3 = Question.create(content: 'What is the name of the central management system for the Ruby libraries and packages?',
-                test_id: ruby_test_id)
+                     test_id: test_ruby.id)
 
 # Answer variants
 Answer.create(content: 'John Wick', correct: false,
@@ -58,3 +57,11 @@ Answer.create(content: 'npm', correct: false,
               question_id: q3.id)
 Answer.create(content: 'RubyGems', correct: true,
               question_id: q3.id)
+
+# UserTest
+UserTest.create(user_id: User.find_by(name: 'John').id, test_id: test_ruby.id)
+UserTest.create(user_id: User.find_by(name: 'John').id, test_id: test_rails.id)
+UserTest.create(user_id: User.find_by(name: 'Ann').id, test_id: test_rails.id)
+UserTest.create(user_id: User.find_by(name: 'Ann').id, test_id: test_js.id)
+UserTest.create(user_id: User.find_by(name: 'Ruslan').id, test_id: test_ruby.id)
+UserTest.create(user_id: User.find_by(name: 'Ruslan').id, test_id: test_js.id)
