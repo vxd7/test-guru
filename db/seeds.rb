@@ -6,7 +6,13 @@
 #   movies = Movie.create!([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create!(name: 'Luke', movie: movies.first)
 
-# create! categories
+# Create Users
+users = User.create!([{ name: 'John' },
+                      { name: 'Ann' },
+                      { name: 'Maria' },
+                      { name: 'Ruslan' }])
+
+# Create categories
 categories = Category.create!([{ name: 'Backend' },
                                { name: 'Frontend' },
                                { name: 'Web development' },
@@ -14,18 +20,15 @@ categories = Category.create!([{ name: 'Backend' },
                                { name: 'UI/UX' }])
 
 # Tests
+# Category Backend, author Ann
 test_ruby = Test.create!(title: 'Ruby development', level: 0,
-                         category_id: categories[0].id) # Category Backend
+                         category_id: categories[0].id, author_id: users[1].id)
+# Category Web development, author Ruslan
 test_rails = Test.create!(title: 'Rails basics', level: 2,
-                          category_id: categories[2].id) # Category Web development
+                          category_id: categories[2].id, author_id: users[3].id)
+# Category Frontend, author Maria
 test_js = Test.create!(title: 'JavaScript basics', level: 1,
-                       category_id: categories[1].id) # Category Frontend
-
-# Users
-User.create!([{ name: 'John' },
-              { name: 'Ann' },
-              { name: 'Maria' },
-              { name: 'Ruslan' }])
+                       category_id: categories[1].id, author_id: users[2].id)
 
 # Questions
 # For 'Ruby development' test
