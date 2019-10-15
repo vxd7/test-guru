@@ -5,4 +5,7 @@ class Test < ApplicationRecord
       .order('tests.id DESC')
       .pluck(:title)
   end
+
+  # Test belongs to one author
+  belongs_to :author, class_name: :User, foreign_key: :author_id
 end
