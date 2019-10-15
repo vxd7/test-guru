@@ -8,7 +8,8 @@ class Test < ApplicationRecord
   has_many :questions, dependent: :destroy
 
   def self.tests_by_category(category)
-    joins('JOIN categories ON tests.category_id = categories.id')
+    # joins('JOIN categories ON tests.category_id = categories.id')
+    joins(:category)
       .where(categories: { name: category })
       .order('tests.id DESC')
       .pluck(:title)
