@@ -13,4 +13,6 @@ class Test < ApplicationRecord
   has_many :users, through: :user_tests
 
   has_many :questions
+
+  belongs_to :category
 end
