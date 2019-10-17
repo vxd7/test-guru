@@ -1,6 +1,6 @@
 class Test < ApplicationRecord
   # Test belongs to one author
-  belongs_to :author, class_name: :User, foreign_key: :author_id
+  belongs_to :author, class_name: :User, foreign_key: :author_id, optional: true
   belongs_to :category, optional: true
 
   has_many :user_tests, dependent: :destroy

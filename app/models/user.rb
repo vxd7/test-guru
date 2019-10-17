@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # User can be an author of many tests
   has_many :authored_tests, class_name: :Test, foreign_key: :author_id,
-                            dependent: :destroy
+                            dependent: :nullify
   has_many :user_tests, dependent: :destroy
   has_many :tests, through: :user_tests
 
