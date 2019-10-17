@@ -6,7 +6,13 @@
 #   movies = Movie.create!([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create!(name: 'Luke', movie: movies.first)
 
-# create! categories
+# Create Users
+users = User.create!([{ name: 'John' },
+                      { name: 'Ann' },
+                      { name: 'Maria' },
+                      { name: 'Ruslan' }])
+
+# Create categories
 categories = Category.create!([{ name: 'Backend' },
                                { name: 'Frontend' },
                                { name: 'Web development' },
@@ -14,55 +20,52 @@ categories = Category.create!([{ name: 'Backend' },
                                { name: 'UI/UX' }])
 
 # Tests
+# Category Backend, author Ann
 test_ruby = Test.create!(title: 'Ruby development', level: 0,
-                         category_id: categories[0].id) # Category Backend
+                         category: categories[0], author: users[1])
+# Category Web development, author Ruslan
 test_rails = Test.create!(title: 'Rails basics', level: 2,
-                          category_id: categories[2].id) # Category Web development
+                          category: categories[2], author: users[3])
+# Category Frontend, author Maria
 test_js = Test.create!(title: 'JavaScript basics', level: 1,
-                       category_id: categories[1].id) # Category Frontend
-
-# Users
-User.create!([{ name: 'John' },
-              { name: 'Ann' },
-              { name: 'Maria' },
-              { name: 'Ruslan' }])
+                       category: categories[1], author: users[2])
 
 # Questions
 # For 'Ruby development' test
 q1 = Question.create!(content: 'Who created the Ruby programming language?',
-                      test_id: test_ruby.id)
+                      test: test_ruby)
 q2 = Question.create!(content: 'Variables in Ruby are',
-                      test_id: test_ruby.id)
+                      test: test_ruby)
 q3 = Question.create!(content: 'What is the name of the central management '\
                                'system for the Ruby libraries and packages?',
-                      test_id: test_ruby.id)
+                      test: test_ruby)
 
 # Answer variants
 Answer.create!(content: 'John Wick', correct: false,
-               question_id: q1.id)
+               question: q1)
 Answer.create!(content: 'Vladimir Lenin', correct: false,
-               question_id: q1.id)
+               question: q1)
 Answer.create!(content: 'Bjarne Stroustrup', correct: false,
-               question_id: q1.id)
+               question: q1)
 Answer.create!(content: 'Yukihiro Matsumoto', correct: true,
-               question_id: q1.id)
+               question: q1)
 
 Answer.create!(content: 'Statically typed', correct: false,
-               question_id: q2.id)
+               question: q2)
 Answer.create!(content: 'Dynamically typed', correct: true,
-               question_id: q2.id)
+               question: q2)
 
 Answer.create!(content: 'PyPi', correct: false,
-               question_id: q3.id)
+               question: q3)
 Answer.create!(content: 'npm', correct: false,
-               question_id: q3.id)
+               question: q3)
 Answer.create!(content: 'RubyGems', correct: true,
-               question_id: q3.id)
+               question: q3)
 
 # UserTest
-UserTest.create!(user_id: User.find_by(name: 'John').id, test_id: test_ruby.id)
-UserTest.create!(user_id: User.find_by(name: 'John').id, test_id: test_rails.id)
-UserTest.create!(user_id: User.find_by(name: 'Ann').id, test_id: test_rails.id)
-UserTest.create!(user_id: User.find_by(name: 'Ann').id, test_id: test_js.id)
-UserTest.create!(user_id: User.find_by(name: 'Ruslan').id, test_id: test_ruby.id)
-UserTest.create!(user_id: User.find_by(name: 'Ruslan').id, test_id: test_js.id)
+UserTest.create!(user: User.find_by(name: 'John'), test: test_ruby)
+UserTest.create!(user: User.find_by(name: 'John'), test: test_rails)
+UserTest.create!(user: User.find_by(name: 'Ann'), test: test_rails)
+UserTest.create!(user: User.find_by(name: 'Ann'), test: test_js)
+UserTest.create!(user: User.find_by(name: 'Ruslan'), test: test_ruby)
+UserTest.create!(user: User.find_by(name: 'Ruslan'), test: test_js)
