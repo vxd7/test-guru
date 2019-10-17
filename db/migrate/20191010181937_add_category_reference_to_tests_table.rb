@@ -2,6 +2,6 @@ class AddCategoryReferenceToTestsTable < ActiveRecord::Migration[6.0]
   def change
     # add_reference(:tests, :category, foreign_key: {to_table: :categories})
     add_reference(:tests, :category, foreign_key: true)
-    # change_column_null(:tests, :category_id, false)
+    change_column_null(:tests, :category_id, true)
   end
 end
