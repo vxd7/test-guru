@@ -7,10 +7,10 @@
 #   Character.create!(name: 'Luke', movie: movies.first)
 
 # Create Users
-users = User.create!([{ name: 'John' },
-                      { name: 'Ann' },
-                      { name: 'Maria' },
-                      { name: 'Ruslan' }])
+users = User.create!([{ name: 'John', email: 'johnmail@samplemail.com' },
+                      { name: 'Ann', email: 'annmail@samplemail.com' },
+                      { name: 'Maria', email: 'mariamail@samplemail.com' },
+                      { name: 'Ruslan', email: 'ruslanmail@samplemail.com' }])
 
 # Create categories
 categories = Category.create!([{ name: 'Backend' },
