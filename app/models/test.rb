@@ -11,12 +11,10 @@ class Test < ApplicationRecord
   scope :normal, -> { where(level: 2..4) }
   scope :hard, -> { where(level: 5..Float::INFINITY) }
 
+  scope :tests_by_category, ->(category) { joins(:category).where(categories: { name: category }).order(id: :desc) }
 
-  def self.tests_by_category(category)
+  def self.tests_by_category_array(category)
     # joins('JOIN categories ON tests.category_id = categories.id')
-    joins(:category)
-      .where(categories: { name: category })
-      .order('tests.id DESC')
-      .pluck(:title)
+    tests_by_category(category).pluck(:title)
   end
 end
