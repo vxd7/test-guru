@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
   before_action :find_test, only: %i[index create new]
   before_action :find_question, only: %i[edit show update destroy]
 
-  rescure_from ActiveRecord::RecordNotFound, with: :rescue_with_question_not_found
+  rescue_from ActiveRecord::RecordNotFound, with: :rescue_with_question_not_found
 
   def index
     render plain: @test.questions.inspect
@@ -15,9 +15,7 @@ class QuestionsController < ApplicationController
   def new; end
 
   def create
-    my_question = Question.new(question_params)
-    my_question.test_id = @test.id
-    my_question.save
+    @test.questions.create(question_params)
 
     render plain: 'Successfully created question!'
   end
