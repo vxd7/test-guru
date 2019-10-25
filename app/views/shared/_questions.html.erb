@@ -1,5 +1,7 @@
 <h1>All questions of test '<%=@test.title %>'</h1>
 
+<p><%= link_to 'Create new question for this test', new_test_question_path(@test) %></p>
+
 <table>
   <tr>
     <th>Question content</th>
@@ -16,3 +18,5 @@
     </tr>
   <% end %>
 </table>
+
+<p><%= link_to 'Go to tests listing', tests_path %></p>
