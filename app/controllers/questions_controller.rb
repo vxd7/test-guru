@@ -26,8 +26,7 @@ class QuestionsController < ApplicationController
     render plain: 'Successfullt deleted question!'
   end
 
-  def edit
-  end
+  def edit; end
 
   private
 
