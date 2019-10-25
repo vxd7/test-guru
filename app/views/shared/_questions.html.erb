@@ -1,15 +1,7 @@
-<h1>All questions of test <%=@test.title %> </h1>
+<h1>All questions of test '<%=@test.title %>'</h1>
 
-<table>
-  <tr>
-    <th>Question #</th>
-    <th>Question content</th>
-  </tr>
-
+<ul>
   <% @test.questions.each do |question| %>
-    <tr>
-      <td><%= question.id %></td>
-      <td><%= question.content %></td>
-    </tr>
+    <li><%= question.content %></li>
   <% end %>
-</table>
+</ul>
