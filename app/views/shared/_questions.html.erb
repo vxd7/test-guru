@@ -1,7 +1,18 @@
 <h1>All questions of test '<%=@test.title %>'</h1>
 
-<ul>
+<table>
+  <tr>
+    <th>Question content</th>
+    <th colspan=2>Actions</th>
+  </tr>
   <% @test.questions.each do |question| %>
-    <li><%= question.content %></li>
+    <tr>
+      <td><%= question.content %></td>
+      <td><%= link_to 'Edit', edit_question_path(question) %></td>
+      <td><%= link_to 'Delete',
+        question_path(question),
+        method: :delete,
+        data: {confirm: 'Are you sure?'} %>
+    </tr>
   <% end %>
-</ul>
+</table>
