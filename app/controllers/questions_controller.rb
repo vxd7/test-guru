@@ -12,7 +12,9 @@ class QuestionsController < ApplicationController
     render plain: @question.inspect
   end
 
-  def new; end
+  def new
+    @question = @test.questions.new
+  end
 
   def create
     @test.questions.create(question_params)
