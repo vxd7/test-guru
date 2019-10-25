@@ -25,11 +25,9 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if @question.destroy
-      redirect_to @question.test
-    else
-      render :edit
-    end
+    @question.destroy
+
+    redirect_to @question.test
   end
 
   def edit; end
