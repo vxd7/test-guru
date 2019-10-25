@@ -1,17 +1,7 @@
 <h1><%= question_header('create', @test) %></h1>
 
 <%= form_with model: [@test, @question], local: true do |form| %>
-  <% if @question.errors.present? %>
-    <div>
-      <h2><%= pluralize(@question.errors.count, 'error') %> detected:</h2>
-
-      <ul>
-        <% @question.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render 'shared/error', resource: @question %>
 
   <p>
     <%= form.label :content %><br>
