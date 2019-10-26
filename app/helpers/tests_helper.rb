@@ -6,4 +6,12 @@ module TestsHelper
       "Edit test '#{test.title}'"
     end
   end
+
+  def test_category(test)
+    if test.category.nil?
+      'Category not assigned'
+    else
+      test.category.name
+    end
+  end
 end
