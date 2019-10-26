@@ -1,10 +1,9 @@
 module QuestionsHelper
-  def question_header(action, test)
-    case action
-    when 'create'
-      "Create new '#{test.title}' question"
-    when 'edit'
-      "Edit '#{test.title}' question"
+  def question_header(question)
+    if question.new_record?
+      "Create new '#{question.test.title}' question"
+    elsif question.persisted?
+      "Edit '#{question.test.title}' question"
     end
   end
 end
