@@ -19,4 +19,8 @@
   </ul>
 </p>
 
+<p>
+<%= link_to 'Edit this test', edit_test_path(@test) %> | <%= link_to  'Go back', tests_path %>
+</p>
+
 <%= render 'shared/questions', test: @test %>
