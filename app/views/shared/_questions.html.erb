@@ -5,11 +5,12 @@
 <table>
   <tr>
     <th>Question content</th>
-    <th colspan=2>Actions</th>
+    <th colspan=3>Actions</th>
   </tr>
   <% @test.questions.each do |question| %>
     <tr>
       <td><%= question.content %></td>
+      <td><%= link_to 'Show', question_path(question) %></td>
       <td><%= link_to 'Edit', edit_question_path(question) %></td>
       <td><%= link_to 'Delete',
         question_path(question),
