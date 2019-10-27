@@ -3,7 +3,7 @@ class Answer < ApplicationRecord
   belongs_to :question
 
   validates :content, presence: true
-  validate :validate_overall_answers_number
+  validate :validate_overall_answers_number, on: :create
 
   scope :correct, -> { where(correct: true) }
 
