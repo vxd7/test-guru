@@ -15,6 +15,14 @@
 </ul>
 </p>
 
+<h2>Answers</h2>
+
+<%= link_to 'New answer', new_question_answer_path(@question) %>
+
+<ol>
+  <%= render @question.answers %>
+</ol>
+
 <p>
 <%= link_to 'Edit this question', edit_question_path(@question) %> | <%= link_to 'Go back', test_path(@question.test) %>
 </p>
