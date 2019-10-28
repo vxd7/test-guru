@@ -19,6 +19,14 @@ class TestPassage < ApplicationRecord
     current_question.nil?
   end
 
+  def success_rate
+    (self.correct_questions.to_f / self.test.questions.count) * 100.0
+  end
+
+  def success?
+    success_rate >= 85
+  end
+
   private
 
   def before_validation_set_first_question
