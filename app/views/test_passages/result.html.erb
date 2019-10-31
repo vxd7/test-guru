@@ -1,0 +1,17 @@
+<h1>Test '<%= @test_passage.test.title %>' was completed! </h1>
+
+<p>
+  Your success rate for this test was:
+  <% if @test_passage.success? %>
+    <%= content_tag(:span, @test_passage.success_rate, class: 'test_passage_success') %>%.
+    <br>
+    This is success!
+  <% else %>
+    <%= content_tag(:span, @test_passage.success_rate, class: 'test_passage_failure') %>%.
+    <br>
+    Unfortunately, the test cannot be considered completed.
+  <% end %>
+</p>
+<p>
+<%= link_to 'Go back to tests page', tests_path %>
+</p>
