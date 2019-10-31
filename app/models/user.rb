@@ -7,6 +7,8 @@ class User < ApplicationRecord
 
   validates :email, presence: true
 
+  has_secure_password
+
   def user_tests_by_level(level)
     # Test.joins('JOIN test_passages ON test_passages.test_id = tests.id')
     # Test.joins(:test_passages)
