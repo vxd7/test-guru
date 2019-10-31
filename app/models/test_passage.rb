@@ -31,7 +31,8 @@ class TestPassage < ApplicationRecord
   end
 
   def passage_current_question_index
-    test.questions.order(:id).index(current_question) + 1
+    test.questions.where('id < ?', current_question.id).count + 1
+    # test.questions.order(:id).index(current_question) + 1
   end
 
   private
