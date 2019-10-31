@@ -6,9 +6,10 @@ Rails.application.routes.draw do
       resources :answers, shallow: true, except: :index
     end
 
-    member do
-      post :start
-    end
+    post :start, on: :member
+    # member do
+    #   post :start
+    # end
   end
 
   # GET /test_passages/:id/result
