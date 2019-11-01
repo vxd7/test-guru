@@ -8,6 +8,8 @@ module ApplicationHelper
   end
 
   def flash_message(msg_level)
-    content_tag(:p, flash[msg_level], class: 'flash alert') if flash[msg_level]
+    return unless flash[msg_level]
+
+    content_tag(:p, flash[msg_level], class: "flash #{msg_level}")
   end
 end
