@@ -2,7 +2,7 @@
   <%= link_to 'TestGuru', tests_path %>
   <% if logged_in? %>
     <%= content_tag :span, "Welcome, #{current_user.name} Guru" %>
-    <%= link_to 'Logout', nil %>
+    <%= link_to 'Logout', logout_path %>
   <% else %>
     <%= link_to 'Register', signup_path %>
     <%= link_to 'Log in', login_path %>
