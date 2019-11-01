@@ -11,6 +11,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       # Redirect to the original page user wanted to see
       redirect_to user_redirect_path
+      cookies[:before_login_page] = nil
     else
       flash.now[:alert] = 'Log in unsuccessfull. E-mail and/or password is incorrect!'
       render :new
