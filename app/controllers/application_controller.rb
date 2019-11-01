@@ -6,6 +6,9 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user!
     unless current_user
+      # Save original page user wanted to see
+      # before forcing them to undergo login
+      cookies[:before_login_page] = request.path
       redirect_to login_path, alert: 'Authentication failed! You are not '\
                                      'logged in or your session has expired'
     end

@@ -9,7 +9,8 @@ class SessionsController < ApplicationController
 
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to tests_path
+      # Redirect to the original page user wanted to see
+      redirect_to user_redirect_path
     else
       flash.now[:alert] = 'Log in unsuccessfull. E-mail and/or password is incorrect!'
       render :new
@@ -19,5 +20,11 @@ class SessionsController < ApplicationController
   def destroy
     session[:user_id] = nil
     redirect_to login_path
+  end
+
+  private
+
+  def user_redirect_path
+    cookies.fetch(:before_login_page, tests_path)
   end
 end
