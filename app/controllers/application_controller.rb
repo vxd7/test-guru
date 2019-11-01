@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user!
     unless current_user
-      redirect_to login_path
+      redirect_to login_path, alert: 'Authentication failed! You are not '\
+                                     'logged in or your session has expired'
     end
   end
 
