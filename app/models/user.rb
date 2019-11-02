@@ -1,8 +1,14 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+  devise :database_authenticatable,
+         :registerable,
+         :recoverable,
+         :rememberable,
+         :trackable,
+         :validatable,
+         :confirmable
+
   # User can be an author of many tests
   has_many :authored_tests, class_name: :Test, foreign_key: :author_id,
                             dependent: :nullify
@@ -12,7 +18,7 @@ class User < ApplicationRecord
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP },
                     uniqueness: true
 
-  has_secure_password
+  # has_secure_password
 
   def user_tests_by_level(level)
     # Test.joins('JOIN test_passages ON test_passages.test_id = tests.id')
