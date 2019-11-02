@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root to: 'tests#show'
+
   get 'sessions/new'
   get 'users/new'
 
