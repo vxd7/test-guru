@@ -1,7 +1,7 @@
 <h1><%= test_header(@test) %></h1>
 
-<%= form_with model: @test, local: true do |form| %>
-  <%= render 'shared/error', resource: @test%>
+<%= form_with model: [:admin, @test], local: true do |form| %>
+  <%= render 'shared/error', resource: @test %>
 
   <p>
     <%= form.label :title%><br>
