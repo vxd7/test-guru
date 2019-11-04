@@ -1,0 +1,6 @@
+<div class="topnav">
+  <%= link_to 'TestGuru Admin Panel', admin_tests_path %>
+  <%= content_tag :span, "Welcome, #{current_user.email} Guru" %>
+  <%= link_to 'Logout', destroy_user_session_path, method: :delete %>
+</div>
+
