@@ -18,7 +18,13 @@ class User < ApplicationRecord
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP },
                     uniqueness: true
 
-  # has_secure_password
+  def full_name
+    if first_name.present? && last_name.present?
+      "#{first_name} #{last_name}"
+    else
+      email
+    end
+  end
 
   def admin?
     is_a?(Admin)
