@@ -20,6 +20,10 @@ class User < ApplicationRecord
 
   # has_secure_password
 
+  def admin?
+    is_a?(Admin)
+  end
+
   def user_tests_by_level(level)
     # Test.joins('JOIN test_passages ON test_passages.test_id = tests.id')
     # Test.joins(:test_passages)
