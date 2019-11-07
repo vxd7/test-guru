@@ -27,6 +27,8 @@ gem 'jbuilder', '~> 2.7'
 
 gem 'devise', '~> 4.0'
 
+gem 'faraday'
+
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
