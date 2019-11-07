@@ -20,11 +20,17 @@ Rails.application.routes.draw do
     end
   end
 
+  # Users can only create gists
+  resources :gists, only: :create
+
   namespace :admin do
     resources :tests do
       resources :questions, shallow: true, except: :index do
         resources :answers, shallow: true, except: :index
       end
     end
+
+    # Show all gists only for admin
+    resources :gists, only: :show
   end
 end
