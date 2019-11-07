@@ -40,7 +40,7 @@ class TestPassagesController < ApplicationController
   private
 
   def octokit_client
-    Octokit::Client.new(access_token: 'c6ed841aaf0fe3eeab01cfc05e47cff942f62da5')
+    Octokit::Client.new(access_token: Rails.application.credentials.github_token)
   end
 
   def gist_params(gist_response)
