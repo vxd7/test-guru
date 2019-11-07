@@ -19,8 +19,10 @@ class TestPassagesController < ApplicationController
   end
 
   def gist
-    result = GistQuestionService.new(@test_passage.current_question).call
+    result = GistQuestionService.new(@test_passage.current_question,
+                                     client: octokit_client).call
 
+    print "STATUS: #{result.inspect}"
     flash_options = if result.success?
                       { notice: t('.success') }
                     else
@@ -31,6 +33,10 @@ class TestPassagesController < ApplicationController
   end
 
   private
+
+  def octokit_client
+    Octokit::Client.new(access_token: 'c6ed841aaf0fe3eeab01cfc05e47cff942f62da5')
+  end
 
   def set_test_passage
     @test_passage = TestPassage.find(params[:id])
