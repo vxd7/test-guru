@@ -35,6 +35,7 @@ en:
     gist:
       success: 'Gist has been successfully saved!'
       failure: 'There was an error while saving Gist'
+      gist_link: 'A link to your gist'
   gist_question_service:
-    description: "A question about #{@test.title} from TestGuru"
+    description: "A question about %{test_title} from TestGuru"
 

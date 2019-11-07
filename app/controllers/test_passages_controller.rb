@@ -25,7 +25,11 @@ class TestPassagesController < ApplicationController
     user_gist = @test_passage.current_question.gists.create(gist_params(result))
 
     flash_options = if user_gist.save
-                      { notice: t('.success') }
+                      gist_link = helpers.link_to t('.gist_link'),
+                                                  user_gist.url,
+                                                  target: :_blank
+
+                      { notice: [t('.success'), gist_link].join('<br>') }
                     else
                       { notice: t('.failure') }
                     end
