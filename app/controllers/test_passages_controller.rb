@@ -19,37 +19,19 @@ class TestPassagesController < ApplicationController
   end
 
   def gist
-    result = GistQuestionService.new(@test_passage.current_question,
-                                     octokit_client).call
-
-    user_gist = @test_passage.current_question.gists.new(gist_params(result))
-
-    flash_options = if gist_success?(result) && user_gist.save!
-                      gist_link = helpers.link_to t('.gist_link'),
-                                                  user_gist.url,
-                                                  target: :_blank
-
-                      { notice: [t('.success'), gist_link].join('<br>') }
-                    else
-                      { notice: t('.failure') }
-                    end
+    user_gist = Gist.create_gist(@test_passage)
+    if user_gist
+      gist_link = helpers.link_to t('.gist_link'), user_gist.url,
+                                  target: :_blank
+      flash_options = { notice: [t('.success'), gist_link].join('<br>') }
+    else
+      flash_options = { notice: t('.failure') }
+    end
 
     redirect_to @test_passage, flash_options
   end
 
   private
-
-  def octokit_client
-    Octokit::Client.new(access_token: Rails.application.credentials.github_token)
-  end
-
-  def gist_params(gist_response)
-    { user: @test_passage.user, url: gist_response['html_url'] }
-  end
-
-  def gist_success?(gist_response)
-    !gist_response.nil? && !gist_response['html_url'].empty?
-  end
 
   def set_test_passage
     @test_passage = TestPassage.find(params[:id])
