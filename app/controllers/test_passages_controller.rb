@@ -20,11 +20,11 @@ class TestPassagesController < ApplicationController
 
   def gist
     result = GistQuestionService.new(@test_passage.current_question,
-                                     client: octokit_client).call
+                                     octokit_client).call
 
-    user_gist = @test_passage.current_question.gists.create(gist_params(result))
+    user_gist = @test_passage.current_question.gists.new(gist_params(result))
 
-    flash_options = if user_gist.save
+    flash_options = if gist_success?(result) && user_gist.save!
                       gist_link = helpers.link_to t('.gist_link'),
                                                   user_gist.url,
                                                   target: :_blank
@@ -45,6 +45,10 @@ class TestPassagesController < ApplicationController
 
   def gist_params(gist_response)
     { user: @test_passage.user, url: gist_response['html_url'] }
+  end
+
+  def gist_success?(gist_response)
+    !gist_response.nil? && !gist_response['html_url'].empty?
   end
 
   def set_test_passage
