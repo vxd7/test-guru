@@ -24,9 +24,9 @@ class TestPassagesController < ApplicationController
 
     user_gist = @test_passage.current_question.gists.new(gist_params(result))
 
-    flash_options = if gist_success?(result) && user_gist.save!
+    flash_options = if result.success? && user_gist.save!
                       gist_link = helpers.link_to t('.gist_link'),
-                                                  user_gist.url,
+                                                  result.html_url,
                                                   target: :_blank
 
                       { notice: [t('.success'), gist_link].join('<br>') }
@@ -43,12 +43,8 @@ class TestPassagesController < ApplicationController
     Octokit::Client.new(access_token: Rails.application.credentials.github_token)
   end
 
-  def gist_params(gist_response)
-    { user: @test_passage.user, url: gist_response['html_url'] }
-  end
-
-  def gist_success?(gist_response)
-    !gist_response.nil? && !gist_response['html_url'].empty?
+  def gist_params(result)
+    { user: @test_passage.user, url: result.html_url }
   end
 
   def set_test_passage
