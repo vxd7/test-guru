@@ -4,6 +4,7 @@ class User < ApplicationRecord
                             dependent: :nullify
   has_many :test_passages, dependent: :destroy
   has_many :tests, through: :test_passages
+  has_many :gists, dependent: :nullify
 
   devise :database_authenticatable,
          :registerable,
