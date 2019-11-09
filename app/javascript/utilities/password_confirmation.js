@@ -16,7 +16,7 @@ function checkPasswordConfirmation() {
     }
 
     // Compare substrings
-    if (password_confirmation == password.slice(0, password_confirmation.length)) {
+    if (password_confirmation == password) {
         document.querySelector('.octicon-check').classList.remove('hide')
         document.querySelector('.octicon-x').classList.add('hide')
     } else {
