@@ -1,8 +1,12 @@
 <h1>All tests in the database</h1>
 
-<table>
+<table class="table">
   <tr>
-    <th>Title</th>
+    <th class="sort-by-title pointer">
+      Title
+      <%= octicon 'arrow-up', class: 'text-success hide' %>
+      <%= octicon 'arrow-down', class: 'text-success hide' %>
+    </th>
     <th>Level</th>
     <th>Category</th>
     <th># of questions</th>
