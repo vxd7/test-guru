@@ -10,3 +10,10 @@ ru:
     tests:
       form_inline:
         submit: "ОК"
+  activerecord:
+    errors:
+      models:
+        test:
+          attributes:
+            title:
+              blank: "Название теста не может быть пустым"

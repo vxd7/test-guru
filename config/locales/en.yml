@@ -43,4 +43,11 @@ en:
     tests:
       form_inline:
         submit: 'OK'
+  activerecord:
+    errors:
+      models:
+        test:
+          attributes:
+            title:
+              blank: "Test title cannot be blank"
 
