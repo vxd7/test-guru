@@ -1,15 +1,17 @@
 <tr>
   <td class="align-middle">
-    <%= link_to test.title, admin_test_path(test) %>
+    <%= content_tag :span, test.title, class: 'test-title', data: { test_id: test.id } %>
     <%= render 'form_inline', test: test == @tests ? @test : test %>
   </td>
   <td class="align-middle"><%= test.level %></td>
   <td class="align-middle"><%= test_category(test) %></td>
   <td class="align-middle"><%= test.questions.count %></td>
   <td class="align-middle"><%= link_to 'Show', admin_test_path(test) %>
-  <td class="align-middle"><%= link_to 'Edit', edit_admin_test_path(test) %></td>
+  <td class="align-middle"><%= link_to 'Edit', edit_admin_test_path(test),
+                                       data: { test_id: test.id },
+                                       class: 'form-inline-link' %></td>
   <td class="align-middle">
     <%= link_to 'Remove', admin_test_path(test), method: :delete,
-      data: { confirm: 'Are you sure?' } %>
+                data: { confirm: 'Are you sure?' } %>
   </td>
 </tr>
