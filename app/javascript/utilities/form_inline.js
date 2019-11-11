@@ -6,6 +6,8 @@ document.addEventListener('turbolinks:load', function() {
     for( var i = 0; i < controls.length; i++ ) {
       controls[i].addEventListener('click', formInlineLinkHandler)
     }
+  } else {
+      return
   }
 
   // If there are errors on the page
