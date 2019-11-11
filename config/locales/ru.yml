@@ -6,3 +6,14 @@ ru:
       gist_link: 'Ссылка на ваш gist'
   gist_question_service:
     description: "Вопрос из теста %{test_title}. Сервис TestGuru"
+  admin:
+    tests:
+      form_inline:
+        submit: "ОК"
+  activerecord:
+    errors:
+      models:
+        test:
+          attributes:
+            title:
+              blank: "Название теста не может быть пустым"

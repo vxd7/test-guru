@@ -2,6 +2,8 @@
 
 <p><%= link_to 'Create new test', new_admin_test_path %></p>
 
+<%= render 'shared/error', resource: @test %>
+
 <table class="table">
   <tr>
     <th class="sort-by-title pointer">
