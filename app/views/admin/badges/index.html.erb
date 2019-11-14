@@ -1,0 +1,13 @@
+<h1>Badges overview</h1>
+
+<table class="table table-nostretch">
+  <tr>
+    <th>Badge picture</th>
+    <th>Badge name</th>
+    <th colspan="3">Actions</th>
+  </tr>
+
+  <%= render @badges %>
+</table>
+
+<p><%= link_to 'New badge', new_admin_badge_path %></p>
