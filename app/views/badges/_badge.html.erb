@@ -1,4 +1,4 @@
 <tr>
-  <td><%= image_tag badge.picture, size: '16x10', alt: badge.title %></td>
-  <td><%= badge.title %></td>
+  <td><%= image_tag badge.picture, height: 64, alt: badge.name, skip_pipeline: true %></td>
+  <td><%= badge.name %></td>
 </tr>
