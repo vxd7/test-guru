@@ -20,6 +20,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :badges, only: :index
+
   namespace :admin do
     resources :tests do
       # Change test title inline in table
@@ -32,5 +34,7 @@ Rails.application.routes.draw do
 
     # Show all gists only for admin
     resources :gists, only: :index
+
+    resources :badges, shallow: true
   end
 end
