@@ -20,7 +20,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :badges, only: :index
+  # index is for all avaliable badges in the system
+  resources :badges, only: :index do
+    # user_badges is for user's personal badge collection
+    get :user_badges
+  end
 
   namespace :admin do
     resources :tests do
