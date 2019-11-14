@@ -6,6 +6,9 @@ class User < ApplicationRecord
   has_many :tests, through: :test_passages
   has_many :gists, dependent: :nullify
 
+  has_many :user_badges, dependent: :nullify
+  has_many :badges, through: :user_badges
+
   devise :database_authenticatable,
          :registerable,
          :recoverable,
