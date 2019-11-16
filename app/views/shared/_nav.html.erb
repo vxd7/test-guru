@@ -2,8 +2,8 @@
   <%= link_to 'TestGuru', tests_path %>
   <% if user_signed_in? %>
     <%= content_tag :span, "Welcome, #{current_user.email} Guru" %>
-    <%= link_to 'Your badges', badges_user_badges_path %>
-    <%= link_to 'All badges', badges_path %>
+    <%= link_to I18n.t('.nav.topnav.your_badges'), badges_user_badges_path %>
+    <%= link_to I18n.t('.nav.topnav.all_badges'), badges_path %>
     <%= link_to 'Logout', destroy_user_session_path, method: :delete, class: "right" %>
   <% else %>
     <%= link_to 'Register', new_user_registration_path %>

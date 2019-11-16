@@ -1,16 +1,16 @@
-<h1>Personal badge collection</h1>
+<h1><%= I18n.t('.badges.content_headings.personal_collection') %></h1>
 
 <% if @badges.empty? %>
-  <p>Currently you have no badges</p>
+  <p><%= I18n.t('.badges.no_badges') %></p>
 <% else %>
-  <p>You have earned the following badges</p>
+  <p><%= I18n.t('.badges.has_badges') %></p>
 <% end %>
 
 <table class="table table-nostretch">
   <tr>
-    <th>Badge picture</th>
-    <th>Badge description</th>
-    <th>Badge name</th>
+    <th><%= I18n.t('.badges.table_headers.badge_picture') %></th>
+    <th><%= I18n.t('.badges.table_headers.badge_descr') %></th>
+    <th><%= I18n.t('.badges.table_headers.badge_name') %></th>
   </tr>
 
   <%= render partial: 'shared/badge', collection: @badges %>

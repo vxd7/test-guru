@@ -1,13 +1,13 @@
-<h1>Badges overview</h1>
+<h1><%= I18n.t('.badges.content_headings.overview') %></h1>
 
 <table class="table table-nostretch">
   <tr>
-    <th>Badge picture</th>
-    <th>Badge description</th>
-    <th>Badge name</th>
+    <th><%= I18n.t('.badges.table_headers.badge_picture') %></th>
+    <th><%= I18n.t('.badges.table_headers.badge_descr') %></th>
+    <th><%= I18n.t('.badges.table_headers.badge_name') %></th>
   </tr>
 
   <%= render partial: 'shared/badge', collection: @badges %>
 </table>
 
-<%= link_to 'Your personal badge collection', badges_user_badges_path %>
+<%= link_to I18n.t('.badges.content_headings.personal_collection'), badges_user_badges_path %>
