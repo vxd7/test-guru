@@ -1,0 +1,15 @@
+<% unless @badges.empty? %>
+  <p>
+    <h3>You have earned the following badges</h3>
+
+    <table class="table table-nostretch">
+    <tr>
+      <th>Badge picture</th>
+      <th>Badge name</th>
+    </tr>
+
+    <%= render partial: 'shared/badge', collection: @badges %>
+    </table>
+
+  </p>
+<% end %>

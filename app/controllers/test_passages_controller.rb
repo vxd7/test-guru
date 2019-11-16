@@ -6,12 +6,14 @@ class TestPassagesController < ApplicationController
   end
 
   def result
+    @badges = check_badges
   end
 
   def update
     @test_passage.accept!(params[:answer_ids])
 
     if @test_passage.completed?
+
       redirect_to result_test_passage_path(@test_passage)
     else
       render :show
@@ -38,6 +40,10 @@ class TestPassagesController < ApplicationController
   end
 
   private
+
+  def check_badges
+    BadgesService.new(current_user, @test_passage.test).check_all_rules
+  end
 
   def octokit_client
     Octokit::Client.new(access_token: Rails.application.credentials.github_token)

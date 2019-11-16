@@ -12,6 +12,10 @@
     Unfortunately, the test cannot be considered completed.
   <% end %>
 </p>
+
+<% p '>>>>', @badges %>
+<%= render partial: 'earned_badges' %>
+
 <p>
 <%= link_to 'Go back to tests page', tests_path %>
 </p>
