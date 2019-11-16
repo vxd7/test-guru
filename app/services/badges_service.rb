@@ -1,10 +1,26 @@
 class BadgesService
   # Here we define all avaliable badge criteria as method names
-  RULES = ['passed_all_backend_tests?', 'passed_test_first_try?',
-           'passed_all_lvl_1_tests?', 'passed_all_lvl_10_tests?'].freeze
+  RULES = %i[passed_all_backend_tests? passed_test_first_try?
+             passed_all_lvl_1_tests? passed_all_lvl_10_tests?].freeze
+
+  def initialize(user, current_finished_test)
+    @user = user
+    @current_finished_test = current_finished_test
+  end
+
+  def check_all_rules
+    successful_rules = []
+    # Check all rules for registered badges
+    Badge.all.each do |badge|
+      successful_rules << badge if send(badge.rule, @user,
+                                        @current_finished_test)
+    end
+
+    successful_rules
+  end
 
   def passed_all_backend_tests?(user, current_finished_test)
-    return false if current_finished_test.category_id = Category.find_by(name: 'Backend')
+    return false unless correct_category?(current_finished_test, 'Backend')
 
     passed_all_tests_by_category?(user, 'Backend')
   end
@@ -57,5 +73,9 @@ class BadgesService
     return false if user_test_passages_by_lvl.count != all_lvl_tests.count
 
     user_test_passages_by_lvl.values.uniq.count == 1
+  end
+
+  def correct_category?(test, category)
+    test.category.name == category
   end
 end
