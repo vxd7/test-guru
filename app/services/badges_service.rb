@@ -28,7 +28,7 @@ class BadgesService
   def passed_all_lvl_1_tests?(user, current_finished_test)
     return false if current_finished_test.level != 1
 
-    passed_all_lvl_tests(user, 1)
+    passed_all_lvl_tests?(user, 1)
   end
 
   def passed_all_lvl_10_tests?(user, current_finished_test)

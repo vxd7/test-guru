@@ -35,7 +35,7 @@ class Admin::BadgesController < Admin::BaseController
 
   private
 
-  def find_bage
+  def find_badge
     @badge = Badge.find(params[:id])
   end
 
