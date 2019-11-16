@@ -6,7 +6,7 @@
     <th>Badge name</th>
   </tr>
 
-  <%= render @badges %>
+  <%= render partial: 'shared/badge', collection: @badges %>
 </table>
 
 <%= link_to 'Your personal badge collection', badges_user_badges_path %>
