@@ -38,7 +38,7 @@ class BadgesService
   end
 
   def passed_test_first_try?(user, current_finished_test)
-    user_test_passage_count = user.test_passages.where(succes: true).joins(:tests)
+    user_test_passage_count = user.test_passages.where(success: true).joins(:test)
                                   .where('tests.id = ?', current_finished_test.id)
                                   .count
     user_test_passage_count == 1
