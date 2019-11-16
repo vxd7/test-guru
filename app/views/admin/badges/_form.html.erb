@@ -9,6 +9,11 @@
   </p>
 
   <p>
+    <%= form.label :description %><br>
+    <%= form.text_area :description, id: :badge_description, rows: 5, cols: 20 %>
+  </p>
+
+  <p>
     <%= form.label :picture %><br>
     <!-- Call helper method here -->
     <%= form.collection_radio_buttons :picture, avaliable_pictures, :to_s, :to_s do |segment|%>
@@ -21,7 +26,8 @@
   </p>
 
   <p>
-    <%= form.label :rule %>
+    <%= form.label :rule %><br>
+    <%= form.collection_select :rule, BadgesService.avaliable_rules, :to_s, :to_s %>
   </p>
 
   <p><%= form.submit %></p>
