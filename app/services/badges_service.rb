@@ -44,6 +44,10 @@ class BadgesService
     user_test_passage_count == 1
   end
 
+  def self.avaliable_rules
+    RULES
+  end
+
   private
 
   # Note: this badge can be earned multiple times.
