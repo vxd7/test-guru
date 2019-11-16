@@ -6,14 +6,17 @@ class TestPassagesController < ApplicationController
   end
 
   def result
+    # Check user badges when the test is finished
     @badges = check_badges
+
+    # And save badges if there are any
+    save_status = save_user_badges
   end
 
   def update
     @test_passage.accept!(params[:answer_ids])
 
     if @test_passage.completed?
-
       redirect_to result_test_passage_path(@test_passage)
     else
       render :show
@@ -43,6 +46,12 @@ class TestPassagesController < ApplicationController
 
   def check_badges
     BadgesService.new(current_user, @test_passage.test).check_all_rules
+  end
+
+  def save_user_badges
+    @badges.each do |badge|
+      current_user.badges.push(badge)
+    end
   end
 
   def octokit_client
