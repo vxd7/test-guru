@@ -1,7 +1,7 @@
 class BadgesService
   # Here we define all avaliable badge criteria as method names
-  RULES = %i[passed_all_backend_tests? passed_test_first_try?
-             passed_all_lvl_1_tests? passed_all_lvl_10_tests?].freeze
+  RULES = %i[passed_all_tests_by_category? passed_all_lvl_tests?
+             passed_test_first_try?].freeze
 
   def initialize(user, current_finished_test)
     @user = user
@@ -11,59 +11,44 @@ class BadgesService
   def check_all_rules
     # Check all rules for registered badges
     Badge.all.select do |badge|
-      send(badge.rule, @user, @current_finished_test)
+      send(badge.rule, badge.value, @user, @current_finished_test)
     end
   end
 
-  def passed_all_backend_tests?(user, current_finished_test)
-    return false unless correct_category?(current_finished_test, 'Backend')
-
-    passed_all_tests_by_category?(user, 'Backend')
-  end
-
-  def passed_all_lvl_1_tests?(user, current_finished_test)
-    return false if current_finished_test.level != 1
-
-    passed_all_lvl_tests?(user, 1)
-  end
-
-  def passed_all_lvl_10_tests?(user, current_finished_test)
-    return false if current_finished_test.level != 10
-
-    passed_all_lvl_tests?(user, 10)
-  end
-
-  def passed_test_first_try?(user, current_finished_test)
+  def passed_test_first_try?(_, user, current_finished_test)
     user_test_passage_count = user.test_passages.where(success: true).joins(:test)
                                   .where('tests.id = ?', current_finished_test.id)
                                   .count
     user_test_passage_count == 1
   end
 
-  def self.avaliable_rules
-    RULES
-  end
-
-  private
-
   # Note: this badge can be earned multiple times.
-  def passed_all_tests_by_category?(user, category)
-    category_id = Category.find_by(name: category).id
+  def passed_all_tests_by_category?(category, user, current_finished_test)
+    return false unless correct_category?(current_finished_test, category)
 
-    # Get hash of the form: {test_id => number_of_successful_passes, ...}
-    user_test_passages_grouped = user.test_passages.where(success: true).joins(:test)
+    category_id = current_finished_test.category.id
+
+    # Get the date of the latest badge with this rule and category value
+    latest_category_badge_date = latest_badge_date(user, __method__, category)
+
+    # Select tests which user passed after the date of last badge of this category
+    # and get passages distinct by test name
+    user_test_passages_grouped = user.test_passages
+                                     .where(success: true)
+                                     .where('test_passages.created_at > ?', latest_category_badge_date)
+                                     .joins(:test)
                                      .where('tests.category_id = ?', category_id)
-                                     .group(:test_id).count
+                                     .distinct(:title)
+
     all_category_tests = Test.tests_by_category(category)
 
     # User did not finish all the 'category' tests
-    return false if user_test_passages_grouped.count != all_category_tests.count
-
-    # true if numbers of passages for every test is the same
-    user_test_passages_grouped.values.uniq.count == 1
+    user_test_passages_grouped.count == all_category_tests.count
   end
 
-  def passed_all_lvl_tests?(user, lvl)
+  def passed_all_lvl_tests?(lvl, user, current_finished_test)
+    return false unless correct_level?(current_finished_test, lvl)
+
     user_test_passages_by_lvl = user.test_passages.where(success: true).joins(:test)
                                     .where('tests.level = ?', lvl)
                                     .group(:test_id).count
@@ -75,7 +60,30 @@ class BadgesService
     user_test_passages_by_lvl.values.uniq.count == 1
   end
 
+  def self.avaliable_rules
+    RULES
+  end
+
+  private
+
   def correct_category?(test, category)
     test.category.name == category
+  end
+
+  def correct_level?(test, level)
+    test.level == level
+  end
+
+  # Get the date user has earned the latest badge
+  # with the value 'value'
+  def latest_badge_date(user, rule, value)
+    # Get the latest badge of this value
+    latest_badge = user.user_badges.joins(:badge)
+                       .where('badges.value = ?', value)
+                       .order(created_at: :desc).first
+
+    return 0 if latest_badge.nil?
+
+    latest_badge.created_at
   end
 end
