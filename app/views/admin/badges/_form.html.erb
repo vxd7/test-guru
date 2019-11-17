@@ -30,5 +30,10 @@
     <%= form.collection_select :rule, BadgesService.avaliable_rules, :to_s, :to_s %>
   </p>
 
+  <p>
+    <%= form.label :value, 'Rule value' %><br>
+    <%= form.text_field :value, id: :badge_value %>
+  </p>
+
   <p><%= form.submit %></p>
 <% end %>
