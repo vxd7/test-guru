@@ -9,14 +9,10 @@ class BadgesService
   end
 
   def check_all_rules
-    successful_rules = []
     # Check all rules for registered badges
-    Badge.all.each do |badge|
-      successful_rules << badge if send(badge.rule, @user,
-                                        @current_finished_test)
+    Badge.all.select do |badge|
+      send(badge.rule, @user, @current_finished_test)
     end
-
-    successful_rules
   end
 
   def passed_all_backend_tests?(user, current_finished_test)
