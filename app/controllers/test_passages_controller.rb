@@ -10,7 +10,7 @@ class TestPassagesController < ApplicationController
     @badges = check_badges
 
     # And save badges if there are any
-    save_status = save_user_badges
+    current_user.badges << @badges
   end
 
   def update
@@ -46,12 +46,6 @@ class TestPassagesController < ApplicationController
 
   def check_badges
     BadgesService.new(current_user, @test_passage.test).check_all_rules
-  end
-
-  def save_user_badges
-    @badges.each do |badge|
-      current_user.badges.push(badge)
-    end
   end
 
   def octokit_client
