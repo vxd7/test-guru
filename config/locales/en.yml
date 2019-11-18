@@ -56,6 +56,14 @@ en:
           attributes:
             title:
               blank: "Test title cannot be blank"
+        badge:
+          attributes:
+            name:
+              blank: 'Badge name cannot be blank'
+            picture:
+              blank: 'Cannot create a badge without a picture'
+            rule:
+              blank: 'Cannot create a badge without a rule'
   nav:
     topnav:
       your_badges: 'Your badges'
