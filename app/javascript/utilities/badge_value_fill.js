@@ -7,15 +7,22 @@ document.addEventListener('turbolinks:load', function() {
 })
 
 function loadValues(event) {
+  // Our rule selection box
   var rule_control = event.target
+  // Our value selection box
   var value_control = document.getElementById('badge_value')
+  // New value selection box
   var new_value_control = document.createElement('select')
 
+  // Preserve id and name attributes of the
+  // original select box. This is needed for Rails
+  // to correctly parse and save submitted data to DB
   new_value_control.id = 'badge_value'
+  new_value_control.name = value_control.name
 
   // If we want to load categories
   if (rule_control.value == 'passed_all_tests_by_category?') {
-    showValueSelectionParagraph()
+    showValueSelectionParagraph() //                        Parse data attribute as JSON array
     populateValueSelectionWithTestCategories(new_value_control, JSON.parse(rule_control.dataset.categories))
 
     // Replace old value selection box with new one
