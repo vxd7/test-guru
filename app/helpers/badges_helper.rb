@@ -8,4 +8,12 @@ module BadgesHelper
       File.join('badges', img_name)
     end
   end
+
+  def avaliable_rules
+    full_descr = BadgesService::DESCRIPTIONS.map do |descr|
+      'This badge is given when ' + descr
+    end
+
+    full_descr.zip(BadgesService::RULES)
+  end
 end

@@ -1,7 +1,12 @@
 class BadgesService
   # Here we define all avaliable badge criteria as method names
-  RULES = %i[passed_all_tests_by_category? passed_all_lvl_tests?
+  RULES = %i[passed_all_tests_by_category?
+             passed_all_lvl_tests?
              passed_test_first_try?].freeze
+
+  DESCRIPTIONS = ['user has completed all the tests in the category',
+                  'user has completed all the tests of certain level',
+                  'user has completed the test on the first try'].freeze
 
   def initialize(user, current_finished_test)
     @user = user
