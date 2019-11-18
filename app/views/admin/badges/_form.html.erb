@@ -27,13 +27,15 @@
 
   <p>
     <%= form.label :rule %><br>
-    <%= form.select :rule, options_for_select(avaliable_rules), {}, id: :badge_rule %>
+    <!-- object     method   choices                            options               html_options (data field here)-->
+    <%= form.select :rule, options_for_select(avaliable_rules), { prompt: 'Select' },
+                    data: { categories: Category.pluck(:name), levels: tests_levels }%>
   </p>
 
-  <p>
+  <%= content_tag :p, id: 'value_prompt' do %>
     <%= form.label :value, 'Rule value' %><br>
-    <%= form.text_field :value, id: :badge_value %>
-  </p>
+    <%= form.select :value, [], include_blank: true %>
+  <% end %>
 
   <p><%= form.submit %></p>
 <% end %>
