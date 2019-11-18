@@ -64,6 +64,7 @@ en:
               blank: 'Cannot create a badge without a picture'
             rule:
               blank: 'Cannot create a badge without a rule'
+              taken: 'Cannot create another badge with the same Rule-Value pair'
   nav:
     topnav:
       your_badges: 'Your badges'
