@@ -14,4 +14,8 @@ module TestsHelper
       test.category.name
     end
   end
+
+  def tests_levels
+    Test.order(:level).distinct(:level).pluck(:level)
+  end
 end
