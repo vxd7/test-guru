@@ -64,10 +64,6 @@ class BadgesService
     user_test_passages_by_lvl.values.uniq.count == 1
   end
 
-  def self.avaliable_rules
-    RULES
-  end
-
   private
 
   def correct_category?(test, category)

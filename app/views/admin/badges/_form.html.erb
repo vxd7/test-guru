@@ -27,7 +27,7 @@
 
   <p>
     <%= form.label :rule %><br>
-    <%= form.collection_select :rule, BadgesService.avaliable_rules, :to_s, :to_s %>
+    <%= form.collection_select :rule, BadgesService::RULES, :to_s, :to_s %>
   </p>
 
   <p>
