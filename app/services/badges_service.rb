@@ -28,7 +28,6 @@ class BadgesService
     user_test_passage_count == 1
   end
 
-  # Note: this badge can be earned multiple times.
   def passed_all_tests_by_category?(badge)
     category = badge.value
     return false unless correct_category?(@current_finished_test, category)
@@ -55,18 +54,23 @@ class BadgesService
   end
 
   def passed_all_lvl_tests?(badge)
-    lvl = badge.value
+    lvl = badge.value.to_i
     return false unless correct_level?(@current_finished_test, lvl)
 
-    user_test_passages_by_lvl = @user.test_passages.where(success: true).joins(:test)
+    # Get the date of the latest badge with this rule and level value
+    # which belong to the user '@user'
+    latest_level_badge_date = latest_badge_date(@user, badge.rule, lvl)
+
+    user_test_passages_by_lvl = @user.test_passages
+                                     .where(success: true)
+                                     .where('test_passages.created_at > ?', latest_level_badge_date)
+                                     .joins(:test)
                                      .where('tests.level = ?', lvl)
-                                     .group(:test_id).count
+                                     .distinct(:title)
 
     all_lvl_tests = Test.where(level: lvl)
 
-    return false if user_test_passages_by_lvl.count != all_lvl_tests.count
-
-    user_test_passages_by_lvl.values.uniq.count == 1
+    user_test_passages_by_lvl.count == all_lvl_tests.count
   end
 
   private
