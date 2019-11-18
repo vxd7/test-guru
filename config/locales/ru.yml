@@ -1,4 +1,8 @@
 ru:
+  devise:
+    failure:
+      user:
+        unauthenticated: 'Пользователь не аутентифицирован'
   actions:
     actions: 'Действия'
     show: 'Показать'
