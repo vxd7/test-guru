@@ -34,6 +34,19 @@ class TestPassage < ApplicationRecord
     # test.questions.order(:id).index(current_question) + 1
   end
 
+  def timed?
+    !test.timelimit.nil?
+  end
+
+  def timed_out?
+    time_left.negative? || time_left.zero?
+  end
+
+  def time_left
+    time_after_start = (Time.now - created_at.to_time) / 1.minute
+    (test.timelimit.to_i.minutes - time_after_start) / 1.minute
+  end
+
   private
 
   def set_current_question
