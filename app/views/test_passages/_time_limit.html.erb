@@ -1,0 +1,6 @@
+<% if @test_passage.timed? %>
+  <p>
+  <%= I18n.t('.test_passages.timed_tests.time_left') %>
+    <%= content_tag :span, '', class: 'time-limit', data: {time_left: @time_left } %>
+  </p>
+<% end %>
