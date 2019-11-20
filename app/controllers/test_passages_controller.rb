@@ -1,8 +1,8 @@
 class TestPassagesController < ApplicationController
   before_action :set_test_passage, only: %i[show update result gist]
+  before_action :set_time_left, only: %i[show update]
 
   def show
-
   end
 
   def result
@@ -43,6 +43,12 @@ class TestPassagesController < ApplicationController
   end
 
   private
+
+  def set_time_left
+    return unless @test_passage.timed?
+
+    @time_left = @test_passage.time_left
+  end
 
   def check_badges
     BadgesService.new(current_user, @test_passage.test).check_all_rules

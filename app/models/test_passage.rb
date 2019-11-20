@@ -10,10 +10,14 @@ class TestPassage < ApplicationRecord
   # before_validation :set_next_question, on: :update
 
   def accept!(answer_ids)
-    self.correct_questions += 1 if correct_answer?(answer_ids)
-    self.success = success?
+    if timed_out?
+      self.success = false
+      self.current_question = nil
+    else
+      self.correct_questions += 1 if correct_answer?(answer_ids)
+      self.success = success?
+    end
 
-    # self.current_question = next_question
     save!
   end
 
@@ -39,17 +43,23 @@ class TestPassage < ApplicationRecord
   end
 
   def timed_out?
+    return false unless timed?
+
     time_left.negative? || time_left.zero?
   end
 
   def time_left
-    time_after_start = (Time.now - created_at.to_time) / 1.minute
-    (test.timelimit.to_i.minutes - time_after_start) / 1.minute
+    time_after_start = (Time.now - created_at.to_time)
+    test.timelimit.minutes.seconds - time_after_start
   end
 
   private
 
   def set_current_question
+    if timed? && !created_at.nil?
+      return if timed_out?
+    end
+
     self.current_question = next_question
   end
 
