@@ -30,7 +30,13 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  actions:
+    actions: 'Actions'
+    show: 'Show'
+    edit: 'Edit'
+    remove: 'Remove'
+    r_u_sure: 'Are you sure?'
+
   test_passages:
     gist:
       success: 'Gist has been successfully saved!'
@@ -50,4 +56,36 @@ en:
           attributes:
             title:
               blank: "Test title cannot be blank"
+        badge:
+          attributes:
+            name:
+              blank: 'Badge name cannot be blank'
+            picture:
+              blank: 'Cannot create a badge without a picture'
+            rule:
+              blank: 'Cannot create a badge without a rule'
+              taken: 'Cannot create another badge with the same Rule-Value pair'
+  nav:
+    topnav:
+      your_badges: 'Your badges'
+      all_badges: 'All badges'
+  badges:
+    no_badges: 'Currently you have no badges'
+    has_badges: 'You have earned the following badges'
+    new_badge: 'New badge'
+
+    table_headers:
+      badge_picture: 'Badge picture'
+      badge_descr: 'Badge description'
+      badge_name: 'Badge name'
+
+    content_headings:
+      overview: 'Badges overview'
+      personal_collection: 'Personal badge collection'
+    badges_service:
+      rules:
+        passed_all_tests_by_category?: 'This badge is given when user has completed all the tests in the category'
+        passed_all_lvl_tests?: 'This badge is given when user has completed all the tests of certain level'
+        passed_test_first_try?: 'This badge is given when user has completed the test on the first try'
+
 

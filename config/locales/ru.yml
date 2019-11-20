@@ -1,4 +1,14 @@
 ru:
+  devise:
+    failure:
+      user:
+        unauthenticated: 'Пользователь не аутентифицирован'
+  actions:
+    actions: 'Действия'
+    show: 'Показать'
+    edit: 'Изменить'
+    remove: 'Удалить'
+    r_u_sure: 'Вы уверены?'
   test_passages:
     gist:
       success: 'Gist успешно сохранен!'
@@ -17,3 +27,36 @@ ru:
           attributes:
             title:
               blank: "Название теста не может быть пустым"
+        badge:
+          attributes:
+            name:
+              blank: 'Название бейджа не может быть пустым'
+            picture:
+              blank: 'Невозможно создать бейдж без изображения'
+            rule:
+              blank: 'Невозможно создать бейдж без задания правила'
+              taken: 'Невозможно создать еще один бейдж с такой же парой Правило-Значение'
+
+  nav:
+    topnav:
+      your_badges: 'Ваши бейджи'
+      all_badges: 'Все бейджи'
+  badges:
+    no_badges: 'На данный момент у Вас нет ни одного бейджа'
+    has_badges: 'Полученные Вами бейджи'
+    new_badge: 'Создать новый бейдж'
+
+    table_headers:
+      badge_picture: 'Изображение бейджа'
+      badge_descr: 'Описание бейджа'
+      badge_name: 'Название бейджа'
+
+    content_headings:
+      overview: 'Все бейджи'
+      personal_collection: 'Ваши бейджи'
+    badges_service:
+      rules:
+        passed_all_tests_by_category?: 'Этот бейдж выдается при завершении пользователем всех тестов определенной категории'
+        passed_all_lvl_tests?: 'Этот бейдж выдается при завершении пользователем всех тестов определенного уровня'
+        passed_test_first_try?: 'Этот бейдж выдается при успешном завершении пользователем теста с первой попытки'
+

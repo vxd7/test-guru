@@ -1,0 +1,14 @@
+<h1><%= I18n.t('.badges.content_headings.overview') %></h1>
+
+<table class="table table-nostretch">
+  <tr>
+    <th><%= I18n.t('.badges.table_headers.badge_picture') %></th>
+    <th><%= I18n.t('.badges.table_headers.badge_descr') %></th>
+    <th><%= I18n.t('.badges.table_headers.badge_name') %></th>
+    <th colspan="3"><%= I18n.t('.actions.actions') %></th>
+  </tr>
+
+  <%= render @badges %>
+</table>
+
+<p><%= link_to I18n.t('.badges.new_badge'), new_admin_badge_path %></p>

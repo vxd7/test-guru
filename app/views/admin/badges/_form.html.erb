@@ -1,0 +1,41 @@
+<h1><%# =  badges_header(@badge) %></h1>
+
+<%= form_with model: [:admin, @badge], local: true do |form| %>
+  <%= render 'shared/error', resource: @badge %>
+
+  <p>
+    <%= form.label :name %><br>
+    <%= form.text_field :name, id: :badge_name %>
+  </p>
+
+  <p>
+    <%= form.label :description %><br>
+    <%= form.text_area :description, id: :badge_description, rows: 5, cols: 20 %>
+  </p>
+
+  <p>
+    <%= form.label :picture %><br>
+    <!-- Call helper method here -->
+    <%= form.collection_radio_buttons :picture, avaliable_pictures, :to_s, :to_s do |segment|%>
+      <!-- Render radio button and picture -->
+      <%= content_tag :div, class: 'form-check' do %>
+        <%= segment.radio_button %>
+        <%= image_tag segment.value, height: 64, skip_pipeline: true %>
+      <% end %>
+    <% end %>
+  </p>
+
+  <p>
+    <%= form.label :rule %><br>
+    <!-- object     method   choices                            options               html_options (data field here)-->
+    <%= form.select :rule, options_for_select(avaliable_rules), { prompt: 'Select' },
+                    data: { categories: Category.pluck(:name), levels: tests_levels }%>
+  </p>
+
+  <%= content_tag :p, id: 'value_prompt' do %>
+    <%= form.label :value, 'Rule value' %><br>
+    <%= form.select :value, [], include_blank: true %>
+  <% end %>
+
+  <p><%= form.submit %></p>
+<% end %>

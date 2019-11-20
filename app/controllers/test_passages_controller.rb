@@ -6,6 +6,11 @@ class TestPassagesController < ApplicationController
   end
 
   def result
+    # Check user badges when the test is finished
+    @badges = check_badges
+
+    # And save badges if there are any
+    current_user.badges << @badges
   end
 
   def update
@@ -38,6 +43,10 @@ class TestPassagesController < ApplicationController
   end
 
   private
+
+  def check_badges
+    BadgesService.new(current_user, @test_passage.test).check_all_rules
+  end
 
   def octokit_client
     Octokit::Client.new(access_token: Rails.application.credentials.github_token)

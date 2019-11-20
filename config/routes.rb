@@ -20,6 +20,11 @@ Rails.application.routes.draw do
     end
   end
 
+  # index is for all avaliable badges in the system
+  resources :badges, only: :index
+  # user_badges is for user's personal badge collection
+  get 'badges/user_badges' => 'badges#user_badges'
+
   namespace :admin do
     resources :tests do
       # Change test title inline in table
@@ -32,5 +37,7 @@ Rails.application.routes.draw do
 
     # Show all gists only for admin
     resources :gists, only: :index
+
+    resources :badges, shallow: true
   end
 end

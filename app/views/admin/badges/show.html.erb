@@ -1,0 +1,18 @@
+<h1>Badge info</h1>
+
+<table class="table">
+  <tr>
+    <th>Picture</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Rule</th>
+  </tr>
+  <tr>
+    <td><%= image_tag @badge.picture, height: 128, alt: @badge.name, skip_pipeline: true %></td>
+  <td><%= @badge.name %></td>
+  <td><%= @badge.description %></td>
+  <td><%= @badge.rule %></td>
+  </tr>
+</table>
+
+<p><%= link_to 'Go back', admin_badges_path %></p>
