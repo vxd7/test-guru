@@ -32,16 +32,13 @@ class BadgesService
 
     # Get the date of the latest badge with this rule and category value
     # which belong to the user '@user'
-    latest_category_badge_date = latest_badge_date(@user, badge.rule, category)
+    latest_category_badge_date = latest_badge_date(badge)
 
     # Select tests which user passed after the date of last badge of this category
     # and get passages distinct by test name
-    user_test_passages_grouped = @user.test_passages
-                                      .where(success: true)
-                                      .where('test_passages.created_at > ?', latest_category_badge_date)
-                                      .joins(:test)
-                                      .where('tests.category_id = ?', category_id)
-                                      .distinct(:title)
+    user_test_passages_grouped = distinct_test_passages_by_criteria('category_id',
+                                                                    category_id,
+                                                                    latest_category_badge_date)
 
     all_category_tests = Test.tests_by_category(category)
 
@@ -55,14 +52,11 @@ class BadgesService
 
     # Get the date of the latest badge with this rule and level value
     # which belong to the user '@user'
-    latest_level_badge_date = latest_badge_date(@user, badge.rule, lvl)
+    latest_level_badge_date = latest_badge_date(badge)
 
-    user_test_passages_by_lvl = @user.test_passages
-                                     .where(success: true)
-                                     .where('test_passages.created_at > ?', latest_level_badge_date)
-                                     .joins(:test)
-                                     .where('tests.level = ?', lvl)
-                                     .distinct(:title)
+    user_test_passages_by_lvl = distinct_test_passages_by_criteria('level',
+                                                                   lvl,
+                                                                   latest_level_badge_date)
 
     all_lvl_tests = Test.where(level: lvl)
 
@@ -70,6 +64,18 @@ class BadgesService
   end
 
   private
+
+  # Select successful test passages by user '@user' which are created after
+  # 'latest_criteria_date' and find unique by test title which match given criteria
+  # and criteria value
+  def distinct_test_passages_by_criteria(criteria, criteria_value, latest_criteria_date)
+    @user.test_passages
+         .where(success: true)
+         .where('test_passages.created_at > ?', latest_criteria_date)
+         .joins(:test)
+         .where("tests.#{criteria} = ?", criteria_value)
+         .distinct(:title)
+  end
 
   def correct_category?(test, category)
     test.category.name == category
@@ -81,15 +87,12 @@ class BadgesService
 
   # Get the date user has earned the latest badge
   # with the value 'value'
-  def latest_badge_date(user, rule, value)
+  def latest_badge_date(badge)
     # Get the latest badge of this value
-    latest_badge = user.user_badges.joins(:badge)
-                       .where('badges.rule = ?', rule)
-                       .where('badges.value = ?', value)
-                       .order(created_at: :desc).first
+    latest_user_badge = @user.user_badges
+                             .where(badge: badge)
+                             .order(created_at: :desc).first
 
-    return 0 if latest_badge.nil?
-
-    latest_badge.created_at
+    latest_user_badge&.created_at || 0
   end
 end
