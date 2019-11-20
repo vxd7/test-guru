@@ -10,10 +10,8 @@ module BadgesHelper
   end
 
   def avaliable_rules
-    full_descr = BadgesService::DESCRIPTIONS.map do |descr|
-      'This badge is given when ' + descr
+    full_descr = BadgesService::RULES.map do |rule|
+      [I18n.t(".badges.badges_service.rules.#{rule}"), rule]
     end
-
-    full_descr.zip(BadgesService::RULES)
   end
 end

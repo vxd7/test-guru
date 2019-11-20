@@ -82,5 +82,10 @@ en:
     content_headings:
       overview: 'Badges overview'
       personal_collection: 'Personal badge collection'
+    badges_service:
+      rules:
+        passed_all_tests_by_category?: 'This badge is given when user has completed all the tests in the category'
+        passed_all_lvl_tests?: 'This badge is given when user has completed all the tests of certain level'
+        passed_test_first_try?: 'This badge is given when user has completed the test on the first try'
 
 

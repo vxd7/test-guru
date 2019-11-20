@@ -4,10 +4,6 @@ class BadgesService
              passed_all_lvl_tests?
              passed_test_first_try?].freeze
 
-  DESCRIPTIONS = ['user has completed all the tests in the category',
-                  'user has completed all the tests of certain level',
-                  'user has completed the test on the first try'].freeze
-
   def initialize(user, current_finished_test)
     @user = user
     @current_finished_test = current_finished_test
