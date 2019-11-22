@@ -14,6 +14,7 @@ class Test < ApplicationRecord
 
   validates :title, presence: true, uniqueness: { scope: :level, message: 'can be only one test with given title and level' }
   validates :level, numericality: { only_integer: true, greater_then_or_equal_to: 0 }
+  validates :timelimit, numericality: { greater_then_or_equal_to: 0 }, allow_nil: true
 
   scope :easy, -> { where(level: EZ_DIFFICULTY) }
   scope :normal, -> { where(level: NORM_DIFFICULTY) }
