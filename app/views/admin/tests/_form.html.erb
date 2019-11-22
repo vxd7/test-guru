@@ -18,6 +18,11 @@
     <%= form.collection_select :category_id, Category.all, :id, :name, prompt: true %>
   </p>
 
+  <p>
+    <%= form.label :timelimit, I18n.t('.tests.new_test.timelimit_label')%><br>
+    <%= form.text_field :timelimit, id: :test_timelimit, size: 3%> <%= I18n.t('.tests.new_test.minutes') %>
+  </p>
+
   <p><%= form.submit %></p>
 <% end %>
 

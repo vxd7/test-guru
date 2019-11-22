@@ -1,4 +1,8 @@
 ru:
+  tests:
+    new_test:
+      minutes: 'мин.'
+      timelimit_label: 'Максимальное время прохождения теста'
   devise:
     failure:
       user:
@@ -10,6 +14,9 @@ ru:
     remove: 'Удалить'
     r_u_sure: 'Вы уверены?'
   test_passages:
+    timed_tests:
+      time_left: 'На прохождение теста у Вас осталось: '
+
     gist:
       success: 'Gist успешно сохранен!'
       failure: 'Во время сохранения Gist произошла ошибка'

@@ -30,6 +30,10 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
+  tests:
+    new_test:
+      minutes: 'min.'
+      timelimit_label: 'Time limit for this test'
   actions:
     actions: 'Actions'
     show: 'Show'
@@ -38,6 +42,9 @@ en:
     r_u_sure: 'Are you sure?'
 
   test_passages:
+    timed_tests:
+      time_left: 'Time left: '
+
     gist:
       success: 'Gist has been successfully saved!'
       failure: 'There was an error while saving Gist'

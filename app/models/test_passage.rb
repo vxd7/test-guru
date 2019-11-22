@@ -6,14 +6,16 @@ class TestPassage < ApplicationRecord
   belongs_to :current_question, class_name: :Question, optional: true
 
   before_validation :set_current_question
-  # before_validation :before_validation_set_first_question, on: :create
-  # before_validation :set_next_question, on: :update
 
   def accept!(answer_ids)
-    self.correct_questions += 1 if correct_answer?(answer_ids)
-    self.success = success?
+    if timed_out?
+      self.success = false
+      self.current_question = nil
+    else
+      self.correct_questions += 1 if correct_answer?(answer_ids)
+      self.success = success?
+    end
 
-    # self.current_question = next_question
     save!
   end
 
@@ -34,9 +36,26 @@ class TestPassage < ApplicationRecord
     # test.questions.order(:id).index(current_question) + 1
   end
 
+  def timed?
+    !test.timelimit.nil?
+  end
+
+  def timed_out?
+    timed? && time_left <= 0
+  end
+
+  def time_left
+    time_after_start = (Time.now - created_at.to_time)
+    test.timelimit.minutes.seconds - time_after_start
+  end
+
   private
 
   def set_current_question
+    # We don't need to set next question
+    # if we've hit time limit
+    return if persisted? && timed_out?
+
     self.current_question = next_question
   end
 

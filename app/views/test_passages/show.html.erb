@@ -1,6 +1,8 @@
 <h1>Passing the test: '<%= @test_passage.test.title %>' </h1>
 <h2>Question #<%= @test_passage.passage_current_question_index %> out of <%= @test_passage.test.questions.count %></h2>
 
+<%= render 'time_limit' %>
+
 <p>
   <%= @test_passage.current_question.content %>
 </p>
