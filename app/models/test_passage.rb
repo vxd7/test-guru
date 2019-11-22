@@ -6,8 +6,6 @@ class TestPassage < ApplicationRecord
   belongs_to :current_question, class_name: :Question, optional: true
 
   before_validation :set_current_question
-  # before_validation :before_validation_set_first_question, on: :create
-  # before_validation :set_next_question, on: :update
 
   def accept!(answer_ids)
     if timed_out?
@@ -43,9 +41,7 @@ class TestPassage < ApplicationRecord
   end
 
   def timed_out?
-    return false unless timed?
-
-    time_left.negative? || time_left.zero?
+    timed? && time_left <= 0
   end
 
   def time_left
@@ -56,9 +52,9 @@ class TestPassage < ApplicationRecord
   private
 
   def set_current_question
-    if timed? && !created_at.nil?
-      return if timed_out?
-    end
+    # We don't need to set next question
+    # if we've hit time limit
+    return if persisted? && timed_out?
 
     self.current_question = next_question
   end
